@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>acspl.language</id>
+    <name>ACSPL+</name>
+    <vendor>ACSPL+ Plugin</vendor>
+    <description><![CDATA[
+        Lightweight ACSPL+ 3.12 editing support: syntax highlighting, line comments,
+        project-aware user-function and GLOBAL/LOCAL variable colors,
+        built-in and current-file completion, and offline English documentation.
+        Windows ACS SDK 3.12 controller environment preview: buffer compile/run,
+        line breakpoints, pause, resume, step and read-only variable watches.
+        Supports .prg and .acspl files across IntelliJ Platform 2026.2 IDEs.
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.xdebugger</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="ACSPL+" language="ACSPL+" extensions="prg;acspl"
+                  implementationClass="org.acspl.intellij.AcsplFileType" fieldName="INSTANCE"/>
+        <lang.parserDefinition language="ACSPL+" implementationClass="org.acspl.intellij.psi.AcsplParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="ACSPL+" implementationClass="org.acspl.intellij.editor.AcsplSyntaxHighlighterFactory"/>
+        <lang.commenter language="ACSPL+" implementationClass="org.acspl.intellij.editor.AcsplCommenter"/>
+        <annotator language="ACSPL+" implementationClass="org.acspl.intellij.editor.AcsplSemanticAnnotator"/>
+        <fileBasedIndex implementation="org.acspl.intellij.symbols.ProjectSymbolIndex"/>
+        <projectService serviceImplementation="org.acspl.intellij.symbols.SymbolHighlightingRefresh"/>
+        <colorSettingsPage implementation="org.acspl.intellij.editor.AcsplColorSettingsPage"/>
+        <completion.contributor language="ACSPL+" implementationClass="org.acspl.intellij.completion.AcsplCompletionContributor"/>
+        <typedHandler implementation="org.acspl.intellij.editor.AcsplTypedHandler"/>
+        <platform.backend.documentation.targetProvider implementation="org.acspl.intellij.documentation.AcsplDocumentationTargetProvider"/>
+        <projectService serviceImplementation="org.acspl.intellij.controller.ControllerSettings"/>
+        <projectService serviceImplementation="org.acspl.intellij.controller.ControllerManager"/>
+        <projectConfigurable id="acspl.controller" displayName="ACSPL+ Controller"
+                             instance="org.acspl.intellij.controller.ControllerConfigurable"/>
+        <toolWindow id="ACSPL+ Controller" anchor="bottom"
+                    factoryClass="org.acspl.intellij.controller.ControllerToolWindowFactory"/>
+        <xdebugger.breakpointType implementation="org.acspl.intellij.controller.debug.AcsplBreakpointType"/>
+    </extensions>
+</idea-plugin>

@@ -1,0 +1,25 @@
+! D-buffer-style definitions for current-file name completion.
+STRUCT Pose {
+    REAL x, y
+}
+
+GLOBAL Pose target
+GLOBAL REAL positionHistory(2)(100)
+LOCAL retryCount
+AXISDEF XAxis = 0, YAxis = 1
+
+REAL calculateOffset(REAL REF currentValue, INT samples(), INT count)
+StartLabel:
+retryCount = 0
+STOP
+
+REAL calculateOffset(REAL REF currentValue, INT samples(), INT count) {
+    INT index
+    REAL sum
+    sum = 0
+    LOOP count
+        sum = sum + samples(index)
+        index++
+    END
+    RET sum
+}

@@ -1,0 +1,456 @@
+{
+  "ALL": {
+    "kind": "keyword",
+    "description": "Designates all axes supported by the controller.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.1.6",
+        "page": 46
+      }
+    ]
+  },
+  "I": {
+    "kind": "variable",
+    "description": "General-purpose integer array. Supports explicit and postfix indexing, such as I(99) and I99.",
+    "signatures": [
+      "I(index)",
+      "I99"
+    ],
+    "array": true,
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.4.4",
+        "page": 56
+      }
+    ]
+  },
+  "V": {
+    "kind": "variable",
+    "description": "General-purpose real array. Supports explicit and postfix indexing, such as V(0) and V0.",
+    "signatures": [
+      "V(index)",
+      "V0"
+    ],
+    "array": true,
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.4.4",
+        "page": 56
+      }
+    ]
+  },
+  "LCI": {
+    "kind": "type",
+    "description": "Standard laser-control interface structure. Provides laser functions and configuration/state fields.",
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.1",
+        "page": 769
+      }
+    ]
+  },
+  "AUTOEXEC": {
+    "kind": "label",
+    "description": "Power-up entry label. Execution starts here when the controller powers up.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.1.4",
+        "page": 46
+      }
+    ]
+  },
+  "INT": {
+    "kind": "keyword",
+    "description": "Declares a 32-bit integer variable or an integer function return type.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.3",
+        "page": 53
+      }
+    ]
+  },
+  "REAL": {
+    "kind": "keyword",
+    "description": "Declares a real variable or a real function return type.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.3",
+        "page": 53
+      }
+    ]
+  },
+  "LOCAL": {
+    "kind": "keyword",
+    "description": "Declares variables local to the program buffer.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.3",
+        "page": 53
+      }
+    ]
+  },
+  "GLOBAL": {
+    "kind": "keyword",
+    "description": "Declares variables shared between program buffers.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.3.1",
+        "page": 53
+      }
+    ]
+  },
+  "MATRIX": {
+    "kind": "keyword",
+    "description": "Declares a square matrix: a two-dimensional REAL array.",
+    "signatures": [
+      "MATRIX A(N)(N)"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.2.7",
+        "page": 50
+      }
+    ]
+  },
+  "STRUCT": {
+    "kind": "keyword",
+    "description": "Defines a composite data type in the D-buffer.",
+    "signatures": [
+      "STRUCT Name { fields_and_functions }"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.5.2",
+        "page": 59
+      }
+    ]
+  },
+  "VOID": {
+    "kind": "keyword",
+    "description": "Function return type indicating no returned value.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.8.2.1",
+        "page": 66
+      }
+    ]
+  },
+  "REF": {
+    "kind": "keyword",
+    "description": "Passes an INT or REAL function parameter by reference.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.8.3.2",
+        "page": 69
+      }
+    ]
+  },
+  "FASTCALL": {
+    "kind": "keyword",
+    "description": "Declares a function that executes in a single controller cycle.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.8.2.2",
+        "page": 66
+      }
+    ]
+  },
+  "TAG": {
+    "kind": "keyword",
+    "description": "Associates user variables with a tag number for GETVAR and SETVAR.",
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.6.5.1",
+        "page": 64
+      }
+    ]
+  },
+  "RET": {
+    "kind": "keyword",
+    "description": "Returns from a subroutine, autoroutine or user-defined function.",
+    "signatures": [
+      "RET [expression]"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Programmers-Guide.pdf",
+        "section": "3.8.5",
+        "page": 72
+      }
+    ]
+  },
+  "END": {
+    "kind": "keyword",
+    "description": "Closes a BLOCK, IF, LOOP or WHILE control structure."
+  },
+  "ENDS": {
+    "kind": "keyword",
+    "description": "Closes a segmented or multipoint motion definition."
+  },
+  "HALTALL": {
+    "kind": "command",
+    "description": "Terminates motions on all axes using a third-order deceleration profile.",
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.1.15",
+        "page": 63
+      }
+    ]
+  },
+  "SPLITALL": {
+    "kind": "command",
+    "description": "Breaks apart all axis groups.",
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.1.22",
+        "page": 71
+      }
+    ]
+  },
+  "PTP": {
+    "kind": "command",
+    "description": "Generates point-to-point motion for the specified axis or axes to a specified destination point.",
+    "signatures": [
+      "PTP[switches] axis_list, destination_point [, velocity, end_velocity, motor_movement_delay]"
+    ],
+    "parameters": [
+      "axis_list: A single axis or an axis group.",
+      "destination_point: Final destination.",
+      "velocity: Optional velocity used with /v.",
+      "end_velocity: Optional destination velocity used with /f.",
+      "motor_movement_delay: Optional delay used with /q."
+    ],
+    "switches": [
+      {
+        "name": "e",
+        "description": "Wait for motion termination before executing the next command."
+      },
+      {
+        "name": "f",
+        "description": "Specify non-zero velocity at the destination point."
+      },
+      {
+        "name": "m",
+        "description": "Use the motion profile values of the axis group as a whole."
+      },
+      {
+        "name": "r",
+        "description": "Destination is relative to the start point."
+      },
+      {
+        "name": "v",
+        "description": "Use the specified velocity instead of VEL."
+      },
+      {
+        "name": "w",
+        "description": "Create motion but wait for GO before starting."
+      },
+      {
+        "name": "z",
+        "description": "Use the local coordinate system."
+      },
+      {
+        "name": "q",
+        "description": "Delay actual motor movement; resolution is 50 microseconds."
+      }
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.6.21",
+        "page": 158
+      },
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.6.21: Syntax and switches",
+        "page": 159
+      }
+    ]
+  },
+  "DISP": {
+    "kind": "command",
+    "description": "Builds an ASCII output string and sends it to the default communication channel defined by DISPCH.",
+    "signatures": [
+      "DISP argument [, argument ...]"
+    ],
+    "parameters": [
+      "argument: An expression or a string enclosed in double quotation marks.",
+      "Strings support text, escape sequences (\\r, \\s, \\n, \\t, \\xHH), and format specifiers."
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.3.1",
+        "page": 74
+      },
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "2.3.1: Arguments",
+        "page": 75
+      }
+    ]
+  },
+  "FPOS": {
+    "kind": "variable",
+    "description": "Feedback position of each motor in user-defined units. One array element per axis. Read-only.",
+    "signatures": [
+      "FPOS(axis_index)",
+      "FPOS0"
+    ],
+    "array": true
+  },
+  "MST": {
+    "kind": "variable",
+    "description": "Motor state. An integer array containing motor-state bits, one element per axis.",
+    "signatures": [
+      "MST(axis_index).bit_designator",
+      "MST(0).#MOVE"
+    ],
+    "array": true
+  },
+  "#MOVE": {
+    "kind": "constant",
+    "description": "Motion-state bit 5. AST.#MOVE indicates the axis is involved in motion; MST.#MOVE indicates motor motion. For example: TILL ^MST(0).#MOVE.",
+    "owners": [
+      "AST",
+      "MST"
+    ],
+    "signatures": [
+      "AST(axis_index).#MOVE",
+      "MST(axis_index).#MOVE"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "3.4.1: AST bit descriptions",
+        "page": 290
+      },
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "3.4.6: MST bit descriptions",
+        "page": 296
+      }
+    ]
+  },
+  "DPM_Measurement": {
+    "kind": "type",
+    "description": "Diagnostic measurement structure that configures sampling and stores process or periodic measurement results.",
+    "signatures": [
+      "DPM_Measurement instance"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1",
+        "page": 798
+      }
+    ]
+  },
+  "DPM_Motion_Status": {
+    "kind": "type",
+    "description": "Diagnostic structure that monitors the motion phase of a selected axis.",
+    "signatures": [
+      "DPM_Motion_Status instance"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2",
+        "page": 803
+      }
+    ]
+  },
+  "MotionDuration": {
+    "kind": "type",
+    "description": "Standard structure that calculates overall and individual motion-phase durations in seconds from motion parameters. Calculation functions execute in program buffers and wait until calculation completes.",
+    "signatures": [
+      "MotionDuration instance"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1",
+        "page": 806
+      }
+    ]
+  },
+  "BSEG": {
+    "kind": "command",
+    "description": "Starts a blended segmented motion sequence terminated by ENDS. Specifies the initial positions and segment, acceleration and jerk times.",
+    "signatures": [
+      "BSEG[switches](axis_list), initial_position_axis1, initial_position_axis2, segment_time, acceleration_time, jerk_time [, dwell_time] [, motor_motion_delay]"
+    ]
+  },
+  "LCZone": {
+    "kind": "function",
+    "description": "Configures a laser-control operation zone along a single-axis or multi-axis trajectory. Laser pulses are enabled only inside the specified position boundaries.",
+    "signatures": [
+      "LCZONE(Index, AxesUsed, MinPosition, MaxPosition [, InitOffset, PulseResolution])"
+    ]
+  },
+  "NURBS": {
+    "kind": "command",
+    "description": "Creates a non-uniform rational B-spline motion. Control points are added using NPOINT and the motion definition is closed with ENDS.",
+    "signatures": [
+      "NURBS[switches](axis_list) [, velocity, deviation, exc_angle, exc_length, segments_buffer, motor_motion_delay]"
+    ],
+    "switches": [
+      {
+        "name": "w",
+        "description": "Wait for GO before starting motion."
+      },
+      {
+        "name": "v",
+        "description": "Specify the required velocity."
+      },
+      {
+        "name": "d",
+        "description": "Specify permitted deviation from the spline."
+      },
+      {
+        "name": "a",
+        "description": "Specify the maximum angle exception at a control point."
+      },
+      {
+        "name": "l",
+        "description": "Specify the maximum segment-length exception."
+      },
+      {
+        "name": "q",
+        "description": "Delay actual motor movement; resolution is 50 microseconds."
+      }
+    ]
+  },
+  "BPTPCalc": {
+    "kind": "function"
+  },
+  "ENCREAD": {
+    "kind": "function"
+  },
+  "GETPEGCOUNT": {
+    "kind": "function"
+  },
+  "ENCINIT": {
+    "kind": "function"
+  },
+  "SPIWRITE": {
+    "kind": "function"
+  }
+}

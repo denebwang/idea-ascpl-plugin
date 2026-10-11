@@ -1,0 +1,7 @@
+! D-Buffer function example for editor color verification.
+! File-to-buffer mapping is user-managed; do not download this editor example.
+GLOBAL REAL sharedSamples(3)
+
+REAL calculateValue(REAL first, REAL second) {
+    RET first + second
+}

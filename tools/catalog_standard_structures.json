@@ -1,0 +1,1150 @@
+{
+  "DPM_Measurement.variable_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.variable_value"
+    ],
+    "description": "Instantaneous monitored variable, updated each MPU cycle while measurement is active.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 798
+      }
+    ]
+  },
+  "DPM_Measurement.variable_abs_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.variable_abs_value"
+    ],
+    "description": "Absolute value of the monitored variable.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 798
+      }
+    ]
+  },
+  "DPM_Measurement.measured_abs_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.measured_abs_value"
+    ],
+    "description": "Absolute monitored value when when_to_measure is 1; otherwise zero.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 798
+      }
+    ]
+  },
+  "DPM_Measurement.sampled_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.sampled_value"
+    ],
+    "description": "Most recently sampled measured value.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 798
+      }
+    ]
+  },
+  "DPM_Measurement.measurement_status": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Measurement.measurement_status"
+    ],
+    "description": "Measurement state: 0 inactive, 1 paused, 2 active.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.measurement_type": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Measurement.measurement_type"
+    ],
+    "description": "Measurement type: 0 none, 1 process, 2 periodic.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.sample_set_size": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Measurement.sample_set_size"
+    ],
+    "description": "Number of adjacent samples used for moving average, standard deviation and RMS; range 1 to 512.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.when_to_measure": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Measurement.when_to_measure"
+    ],
+    "description": "Measurement gate: 1 enables measurement; 0 disables it.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.sampling_time": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.sampling_time"
+    ],
+    "description": "Sampling interval in milliseconds for periodic measurement. Minimum and resolution are one MPU cycle; maximum is 100000000 ms.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.sampling_type": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Measurement.sampling_type"
+    ],
+    "description": "Process sampling mode: 0 samples on the positive gate edge; 1 averages MPU-cycle values and samples on the negative gate edge.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 799
+      }
+    ]
+  },
+  "DPM_Measurement.sample_counter": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.sample_counter"
+    ],
+    "description": "Number of samples collected since the measurement process began.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 800
+      }
+    ]
+  },
+  "DPM_Measurement.peak_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.peak_value"
+    ],
+    "description": "Maximum sampled value. ClearPeak resets the peak to zero.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 800
+      }
+    ]
+  },
+  "DPM_Measurement.moving_average_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.moving_average_value"
+    ],
+    "description": "Moving average of the current sample set.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 800
+      }
+    ]
+  },
+  "DPM_Measurement.std_dev_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.std_dev_value"
+    ],
+    "description": "Standard deviation of the current sample set.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 800
+      }
+    ]
+  },
+  "DPM_Measurement.rms_value": {
+    "kind": "variable",
+    "signatures": [
+      "REAL DPM_Measurement.rms_value"
+    ],
+    "description": "Root mean square of the current sample set.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.1",
+        "page": 800
+      }
+    ]
+  },
+  "DPM_Measurement.MeasureProcess": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.MeasureProcess(monitored_variable, when_to_measure, sample_set_size, sampling_type)"
+    ],
+    "description": "Starts measurements gated by a process or motion-phase signal.",
+    "parameters": [
+      "monitored_variable: Variable to measure.",
+      "when_to_measure: Measurement gate signal.",
+      "sample_set_size: Number of samples used for statistics.",
+      "sampling_type: Edge or accumulated-average sampling mode."
+    ],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 801
+      }
+    ]
+  },
+  "DPM_Measurement.MeasurePeriodically": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.MeasurePeriodically(monitored_variable, when_to_measure, sample_set_size, sampling_time)"
+    ],
+    "description": "Starts periodic measurements of a monitored variable.",
+    "parameters": [
+      "monitored_variable: Variable to measure.",
+      "when_to_measure: Measurement gate signal.",
+      "sample_set_size: Number of samples used for statistics.",
+      "sampling_time: Sampling period in milliseconds."
+    ],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 801
+      }
+    ]
+  },
+  "DPM_Measurement.Stop": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.Stop()"
+    ],
+    "description": "Stops measurement.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 802
+      }
+    ]
+  },
+  "DPM_Measurement.Pause": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.Pause()"
+    ],
+    "description": "Pauses active measurement.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 802
+      }
+    ]
+  },
+  "DPM_Measurement.Resume": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.Resume()"
+    ],
+    "description": "Resumes paused measurement.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 802
+      }
+    ]
+  },
+  "DPM_Measurement.ClearAll": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.ClearAll()"
+    ],
+    "description": "Clears all measurement values and when_to_measure.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 802
+      }
+    ]
+  },
+  "DPM_Measurement.ClearPeak": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Measurement.ClearPeak()"
+    ],
+    "description": "Resets the peak value to zero.",
+    "parameters": [],
+    "owners": [
+      "DPM_Measurement"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.1.2",
+        "page": 802
+      }
+    ]
+  },
+  "DPM_Motion_Status.during_motion": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.during_motion"
+    ],
+    "description": "Motion-profile activity flag.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 803
+      }
+    ]
+  },
+  "DPM_Motion_Status.during_accel": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.during_accel"
+    ],
+    "description": "Acceleration-phase flag.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 803
+      }
+    ]
+  },
+  "DPM_Motion_Status.during_decel": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.during_decel"
+    ],
+    "description": "Deceleration-phase flag.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.during_cv": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.during_cv"
+    ],
+    "description": "Constant-velocity-phase flag.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.selected_axis": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.selected_axis"
+    ],
+    "description": "Axis selected for motion monitoring.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.on_off": {
+    "kind": "variable",
+    "signatures": [
+      "INT DPM_Motion_Status.on_off"
+    ],
+    "description": "Monitoring enabled flag: 1 on, 0 off.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.1",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.SelectAxis": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Motion_Status.SelectAxis(Axis)"
+    ],
+    "description": "Selects the axis to monitor. Monitoring must be off when selecting the axis.",
+    "parameters": [
+      "Axis: Axis number."
+    ],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.2",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.MonitorOn": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Motion_Status.MonitorOn()"
+    ],
+    "description": "Activates motion-phase monitoring for the selected axis.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.2",
+        "page": 804
+      }
+    ]
+  },
+  "DPM_Motion_Status.MonitorOff": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Motion_Status.MonitorOff()"
+    ],
+    "description": "Deactivates monitoring; subsequent move commands are not monitored.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.2",
+        "page": 805
+      }
+    ]
+  },
+  "DPM_Motion_Status.ClearAll": {
+    "kind": "function",
+    "signatures": [
+      "DPM_Motion_Status.ClearAll()"
+    ],
+    "description": "Clears during_motion, during_accel, during_decel and during_cv.",
+    "parameters": [],
+    "owners": [
+      "DPM_Motion_Status"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.2.2.2",
+        "page": 805
+      }
+    ]
+  },
+  "MotionDuration.Distance": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Distance"
+    ],
+    "description": "Motion distance in user units.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.Velocity": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Velocity"
+    ],
+    "description": "Profile velocity; default 10000.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.Acceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Acceleration"
+    ],
+    "description": "Profile acceleration; default 100000.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.Deceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Deceleration"
+    ],
+    "description": "Profile deceleration; default 100000.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.Jerk": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Jerk"
+    ],
+    "description": "Profile jerk; default 2E7.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.Snap": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.Snap"
+    ],
+    "description": "Profile snap; default 100E7.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.InitialVelocity": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.InitialVelocity"
+    ],
+    "description": "Initial velocity; default zero.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.InitialAcceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.InitialAcceleration"
+    ],
+    "description": "Initial acceleration; default zero.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.FinalVelocity": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.FinalVelocity"
+    ],
+    "description": "Final velocity; default zero.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.FinalAcceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.FinalAcceleration"
+    ],
+    "description": "Final acceleration; default zero.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.EncoderFactor": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.EncoderFactor"
+    ],
+    "description": "Encoder conversion factor; default 1.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.T_MotionOverallTime": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T_MotionOverallTime"
+    ],
+    "description": "Calculated overall motion duration in seconds. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 807
+      }
+    ]
+  },
+  "MotionDuration.T31_JerkBuildupAccelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T31_JerkBuildupAccelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Jerk buildup during acceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T1_ConstantJerkAccelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T1_ConstantJerkAccelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Constant jerk during acceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T32_JerkFinishAccelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T32_JerkFinishAccelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Jerk finish during acceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T2_ConstantAcceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T2_ConstantAcceleration"
+    ],
+    "description": "Calculated duration in seconds: Constant acceleration. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T33_JerkBuildupAccelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T33_JerkBuildupAccelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Jerk buildup during acceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T3_ConstantJerkAccelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T3_ConstantJerkAccelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Constant jerk during acceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T33_JerkFinishAccelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T33_JerkFinishAccelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Jerk finish during acceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T4_ConstantVelocity": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T4_ConstantVelocity"
+    ],
+    "description": "Calculated duration in seconds: Constant velocity. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T35_JerkBuildupDecelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T35_JerkBuildupDecelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Jerk buildup during deceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T5_ConstantJerkDecelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T5_ConstantJerkDecelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Constant jerk during deceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T36_JerkFinishDecelerationBuildup": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T36_JerkFinishDecelerationBuildup"
+    ],
+    "description": "Calculated duration in seconds: Jerk finish during deceleration buildup. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T6_ConstantDeceleration": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T6_ConstantDeceleration"
+    ],
+    "description": "Calculated duration in seconds: Constant deceleration. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T37_JerkBuildupDecelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T37_JerkBuildupDecelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Jerk buildup during deceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 808
+      }
+    ]
+  },
+  "MotionDuration.T7_ConstantJerkDecelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T7_ConstantJerkDecelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Constant jerk during deceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 809
+      }
+    ]
+  },
+  "MotionDuration.T38_JerkFinishDecelerationFinish": {
+    "kind": "variable",
+    "signatures": [
+      "REAL MotionDuration.T38_JerkFinishDecelerationFinish"
+    ],
+    "description": "Calculated duration in seconds: Jerk finish during deceleration finish. Read-only.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Fields",
+        "page": 809
+      }
+    ]
+  },
+  "MotionDuration.ReadFrom": {
+    "kind": "function",
+    "signatures": [
+      "MotionDuration.ReadFrom(INT AxisNum)"
+    ],
+    "description": "Reads velocity, acceleration, deceleration, jerk, snap and encoder factor from the specified axis; distance is not read.",
+    "parameters": [
+      "AxisNum: Axis number."
+    ],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Functions",
+        "page": 809
+      }
+    ]
+  },
+  "MotionDuration.CalculatePTPDuration": {
+    "kind": "function",
+    "signatures": [
+      "MotionDuration.CalculatePTPDuration()"
+    ],
+    "description": "Calculates total and phase durations for a third-order PTP motion profile.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Functions",
+        "page": 809
+      }
+    ]
+  },
+  "MotionDuration.CalculateBPTPDuration": {
+    "kind": "function",
+    "signatures": [
+      "MotionDuration.CalculateBPTPDuration()"
+    ],
+    "description": "Calculates overall BPTP motion duration.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Functions",
+        "page": 809
+      }
+    ]
+  },
+  "MotionDuration.CalculateSPTPDuration": {
+    "kind": "function",
+    "signatures": [
+      "MotionDuration.CalculateSPTPDuration()"
+    ],
+    "description": "Calculates total and phase durations for a fourth-order SPTP motion profile.",
+    "parameters": [],
+    "owners": [
+      "MotionDuration"
+    ],
+    "sources": [
+      {
+        "manual": "ACSPL-Commands-Variables-Reference-Guide.pdf",
+        "section": "5.3.1: Struct Functions",
+        "page": 809
+      }
+    ]
+  }
+}
