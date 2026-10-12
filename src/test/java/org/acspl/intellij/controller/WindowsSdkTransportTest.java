@@ -41,6 +41,16 @@ public class WindowsSdkTransportTest {
             assertTrue(engine.connected());
         }
     }
+    @Test public void ethernet313FirmwareConnectsWithZeroHandleAndIndependentLibraryVersion() throws Exception {
+        var profile = environment.copy(); profile.connection = "ETHERNET"; profile.host = "mock-firmware313";
+        try (var engine = new ControllerEngine(new WindowsSdkTransport(), profile, temp.getRoot().toPath().resolve("backup"))) {
+            var info = engine.connect();
+            assertTrue(info, info.startsWith("ACS C Library 7.2.0.0 / ETHERNET"));
+            assertTrue(info, info.contains("Controller Firmware Version:3.13.01.00"));
+            assertTrue(engine.connected());
+            assertEquals(ControllerProtocol.State.NOT_COMPILED, engine.status(2).state());
+        }
+    }
     @Test public void zeroValuedSimulatorAndEthernetHandlesAreUsableAndClosed() throws Exception {
         Path marker = Path.of(environment.dllPath + ".closed");
         for (String kind : List.of("SIMULATOR", "ETHERNET")) {

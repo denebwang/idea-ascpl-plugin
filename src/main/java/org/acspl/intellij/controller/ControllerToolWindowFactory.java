@@ -56,7 +56,7 @@ public final class ControllerToolWindowFactory implements ToolWindowFactory {
             panel.add(new JScrollPane(log), BorderLayout.CENTER);
             panel.add(new JLabel("操作当前编辑器中的映射文件。下载会备份并替换缓冲区；保存到 Flash 需单独点击。"), BorderLayout.SOUTH);
             manager.addListener(this::append, this); reload();
-            append("先在环境设置中配置 ACS SDK 3.12 x64 DLL、连接方式和文件 → 缓冲区映射。");
+            append("先在环境设置中配置 ACS x64 C 库 DLL、连接方式和文件 → 缓冲区映射（固件 3.12 / 3.13）。");
         }
         void button(JPanel p, String text, Runnable task) {
             var b = new JButton(text); b.addActionListener(e -> {

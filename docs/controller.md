@@ -1,10 +1,10 @@
-# Windows ACS 3.12 控制器开发环境
+# Windows ACS 3.12 / 3.13 控制器开发环境
 
-0.3.0 增加环境设置、下载编译、运行和控制器行调试；0.3.1 将控制器脚本源码固定为 ASCII；0.3.2 增加独立的保存到 Flash 按钮；0.3.3 将设置改为列表选择与表单填写；0.3.4 修正 C 库文件版本与 ADK/固件版本的混淆。这是预览功能：开发机没有安装 ACS SDK/ADK，没有连接 ACS 模拟器或实体控制器。已通过模拟导出 C 库的桥接测试和 IDE 自动测试；这不能替代真实 3.12 SDK 和固件的联调。
+0.3.0 增加环境设置、下载编译、运行和控制器行调试；0.3.1 将控制器脚本源码固定为 ASCII；0.3.2 增加独立的保存到 Flash 按钮；0.3.3 将设置改为列表选择与表单填写；0.3.4 修正 C 库文件版本与 ADK/固件版本的混淆；0.3.5 修正零值连接句柄误判；0.3.6 在保留 3.12 的同时接受 3.13 固件连接。这是预览功能：开发机没有安装 ACS SDK/ADK，没有连接 ACS 模拟器或实体控制器。已通过模拟导出 C 库的桥接测试和 IDE 自动测试；这不能替代实际 SDK 和固件的联调。
 
 ## 安装 SDK 与配置环境
 
-1. 安装你取得授权的 **Windows ACS SDK/ADK 3.12**。使用模拟器时需要安装 ADK 的模拟器及相关驱动/运行组件。
+1. 安装你取得授权且适用于目标控制器的 **Windows ACS SDK/ADK**，使用其 x64 C 库。连接检查接受 **3.12 / 3.13 固件系列及补丁版本**。使用模拟器时需要安装 ADK 的模拟器及相关驱动/运行组件。
 2. 在 JetBrains 2026.2 IDE 安装 `build/distributions/acspl-language-0.3.4.zip`，打开本地项目。
 3. 打开 **Settings → ACSPL+ Controller**，点击左侧 **添加环境**，单击列表中的环境，在右侧表单填写名称和 **x64 原生 C 库 DLL 的完整路径**，或使用 **浏览…** 选择 DLL。通常为 `ACSCL_x64.dll`，安装后可在 `C:\Windows\System32` 或 ADK 安装目录的 `Redist` 中查找。无需双击单元格。以 DLL 导出 `acsc_OpenCommEthernetTCP`、`acsc_OpenCommSimulator` 等接口为准，不要选择 `.lib` 或 .NET 托管程序集，也不要将 DLL 复制到插件中。
 4. 连接选择 `SIMULATOR` 或 `ETHERNET`。以太网填写控制器地址、TCP 端口（默认 701）及超时（默认 3000 ms）。SDK 路径和连接方式可以为不同环境分别保存。
@@ -22,12 +22,14 @@ ADK、C 库与控制器固件有各自的版本号。`ACSCL_x64.dll` 的文件�
 
 0.3.4 及更早版本在 SDK 返回零值连接句柄时，会误报 `ACS SDK error 0: `。ACS 连接句柄的失败值为 `ACSC_INVALID (-1)`，不是 Win32 空指针规则。0.3.5 修正了连接判断、后续通信及断开连接三处处理，接受零值句柄；模拟器和 ETHERNET 都适用。升级后按 IDE 提示重启，保留原来的 DLL 路径、地址、端口和文件映射。
 
+0.3.6 的固件连接检查同时接受 `3.12`、`3.13` 及其补丁版本（例如 `3.12.01.00`、`3.13.01.00`）；已识别的其他版本仍拒绝连接。3.13 模拟回归另覆盖 C 库文件版本 `7.2.0.0` 和零值 ETHERNET 句柄，三个数值分别处理。语言高亮、补全及离线文档的资料库仍依据 ACSPL+ 3.12 手册，不等同于新增了完整的 3.13 语言资料。
+
 真实调用失败时，0.3.5 日志会显示 `acsc_OpenCommEthernetTCP (地址:端口)`、`acsc_SetTimeout` 或后续操作的接口名称，以及 SDK 错误码和说明。SDK 未提供错误码或说明时会明确指出，不再输出整段 PowerShell 方法调用堆栈。`-1` 句柄和设置超时失败仍然拒绝连接；不会因错误码为 0 就忽略真实失败。ETHERNET 的地址及端口应对应控制器当前 TCP 通信配置。
 
 ## 在模拟器中验证
 
 1. 打开 `examples/controller-demo.prg`，配置到一个备用缓冲区（例如 2）；示例没有轴或 I/O 操作。
-2. 在控制器工具窗口点击 **连接**。插件只建立连接、设置超时并读取 `#SI` 系统信息；SDK 可以启动其模拟器。日志显示 C 库 DLL 文件版本及控制器信息，已识别的固件版本不是 3.12 时拒绝连接。
+2. 在控制器工具窗口点击 **连接**。插件只建立连接、设置超时并读取 `#SI` 系统信息；SDK 可以启动其模拟器。日志显示 C 库 DLL 文件版本及控制器信息，已识别的固件版本不属于 3.12 / 3.13 系列时拒绝连接。
 3. 点击 **下载并编译当前文件**，核对确认框中的环境、连接目标、文件和缓冲区。缓冲区处于运行或暂停状态时拒绝下载。编译会初始化变量、激活 ON 自动例程，可能产生自动例程行为。
 4. 下载前先上传原脚本，并写入 `.acspl/backups/<环境 ID>/buffer-<编号>-<时间>-<唯一后缀>.prg`；备份失败则拒绝下载。备份保持控制器返回的原始字节，不自动重编码。此目录已加入本工程的 `.gitignore`。
 5. 备份完成后，通过 SDK LoadBuffer 替换脚本，再执行 `#nC`。控制器编译错误显示代码、说明及行号；源文件仍与提交内容一致时，定位对应行。
@@ -61,7 +63,7 @@ ADK、C 库与控制器固件有各自的版本号。`ACSCL_x64.dll` 的文件�
 
 脚本编译与调试指令依据仓库中的《ACSPL+ Commands & Variables Reference Guide》**3.12**：§6.2（第 812 页）、§6.3.5（第 829–833 页）、§6.3.6（第 833–836 页）、§6.4.1（第 836 页）。这些是终端指令，不是插入脚本的 ACSPL+ 指令。
 
-桥接调用用户安装的 SDK 原生 C 库：`acsc_OpenCommSimulator`、`acsc_OpenCommEthernetTCP`、`acsc_CloseComm`、`acsc_SetTimeout`、`acsc_GetLastError`、`acsc_GetErrorString`、`acsc_Transaction`、`acsc_LoadBuffer`、`acsc_UploadBuffer`。公开 ABI 参考为 ACS 发布的 [SPiiPlus C Library Reference 3.13.01](https://manuals.plus/m/29fa774332e3d19e94cf7b93283ff1dc16183d37cd4e111ef478d67c7a2c2c17.pdf)，第 36–37 页介绍 DLL 和安装位置，第 43、45、49–51、64–65、69、75、84 页介绍桥接使用的接口；其修订记录包含 3.12。本地两份 3.12 手册并非 C 库参考，因此仍需用安装后的 **ADK 3.12 所附头文件和实际 DLL** 核对 ABI、服务行与 UploadBuffer 分块行为。DLL 有版本资源时只报告文件版本，无版本资源时明确显示元数据不可用。ACS 的 [ADK 3.12 Beta Release Notes](https://manuals.plus/m/e5f431acfe1e36a290904bccb8ef0a6218b20a137dc0c6e391ae3ce478734863) §1.2（第 4 页）将固件列为 3.12 Beta、C 库列为 7.1.13.0，说明不能将它们的版本编号直接比较；该资料不用于断言用户的 `7.2.0.0` DLL 属于某个具体 ADK 包。
+桥接调用用户安装的 SDK 原生 C 库：`acsc_OpenCommSimulator`、`acsc_OpenCommEthernetTCP`、`acsc_CloseComm`、`acsc_SetTimeout`、`acsc_GetLastError`、`acsc_GetErrorString`、`acsc_Transaction`、`acsc_LoadBuffer`、`acsc_UploadBuffer`。公开 ABI 参考为 ACS 发布的 [SPiiPlus C Library Reference 3.13.01](https://manuals.plus/m/29fa774332e3d19e94cf7b93283ff1dc16183d37cd4e111ef478d67c7a2c2c17.pdf)，第 36–37 页介绍 DLL 和安装位置，第 43、45、49–51、64–65、69、75、84 页介绍桥接使用的接口；其修订记录包含 3.12。本地两份 3.12 手册并非 C 库参考，因此仍需用安装后的 **目标 SDK/ADK 所附头文件和实际 DLL** 核对 ABI、服务行与 UploadBuffer 分块行为。DLL 有版本资源时只报告文件版本，无版本资源时明确显示元数据不可用。ACS 的 [ADK 3.12 Beta Release Notes](https://manuals.plus/m/e5f431acfe1e36a290904bccb8ef0a6218b20a137dc0c6e391ae3ce478734863) §1.2（第 4 页）将固件列为 3.12 Beta、C 库列为 7.1.13.0，说明不能将它们的版本编号直接比较；该资料不用于断言用户的 `7.2.0.0` DLL 属于某个具体 ADK 包。
 
 Flash 保存命令的存在及上电恢复依据本地《ACSPL+ Programmer's Guide》3.12 §2.3.3.1、§2.3.7（第 37、39 页）。该版本没有详细列出单缓冲区保存语法；`#SAVEPROG <编号>` 的单缓冲区覆盖范围补充参考 [ACS 早期 Programmer's Guide，文档修订号 4.22](https://www.scribd.com/document/785569443/SPiiPlus-ACSPLplus-Programmers-Guide-V4-20) §4.3.2（第 4-39 页），不是 3.12 SDK 的实测结论。通过已有的 [acsc_Transaction](https://www.acsmotioncontrol.com/KC/Content/SW/SW_Clibrary/Document/acsc_Transaction.htm) 发送命令，桥接添加 ASCII 回车 `\r`，没有新增 SDK 导出依赖。实际 3.12 命令接受情况、保护模式和 Flash 断电保持仍待联调。
 
@@ -77,7 +79,7 @@ Flash 保存命令的存在及上电恢复依据本地《ACSPL+ Programmer's Gui
 .\gradlew.bat test buildPlugin
 ```
 
-核心控制器测试使用 Java 模拟传输。十个 Windows 原生桥接测试及一个完整 IDE 调试会话测试需要额外的测试 DLL；没有 `mockSdkDll` 参数时这十一项明确跳过，不视为真实 SDK 通过。
+核心控制器测试使用 Java 模拟传输。十一个 Windows 原生桥接测试及一个完整 IDE 调试会话测试需要额外的测试 DLL；没有 `mockSdkDll` 参数时这十二项明确跳过，不视为真实 SDK 通过。
 
 可使用 Windows x64 MinGW GCC 和 windres 编译 `tools/mock_sdk.c` 与 `tools/mock_sdk.rc`，然后运行完整桥接测试（路径按本机调整）。版本资源将测试 DLL 的文件版本设为 `7.2.0.0`，专门检查 C 库与固件版本分离：
 

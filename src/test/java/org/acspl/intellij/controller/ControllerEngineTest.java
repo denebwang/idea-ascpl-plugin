@@ -116,6 +116,27 @@ public class ControllerEngineTest {
         env.mappings.clear(); env.mappings.add(new ControllerEnvironment.BufferMapping("../demo.prg", 2));
         assertThrows(IllegalArgumentException.class, env::validate);
     }
+    @Test public void firmware312And313IncludingPatchVersionsConnectWithoutProgramOperations() throws Exception {
+        for (String firmware : List.of("3.12", "3.12.01.00", "3.13", "3.13.01.00")) {
+            var fake = new Fake(); fake.firmware = firmware;
+            try (var compatible = new ControllerEngine(fake, env, temp.getRoot().toPath())) {
+                assertTrue(compatible.connect().contains("Controller Firmware Version:" + firmware));
+                assertTrue(compatible.connected());
+                assertEquals(List.of("connect", "#SI"), fake.actions);
+            }
+        }
+    }
+    @Test public void unsupportedFirmwareStillClosesConnectionBeforeProgramOperations() throws Exception {
+        for (String firmware : List.of("3.11", "3.14", "3.130", "4.20")) {
+            var fake = new Fake(); fake.firmware = firmware;
+            var unsupported = new ControllerEngine(fake, env, temp.getRoot().toPath());
+            var error = assertThrows(IllegalStateException.class, unsupported::connect);
+            assertTrue(error.getMessage(), error.getMessage().contains(firmware));
+            assertTrue(error.getMessage(), error.getMessage().contains("3.12 / 3.13"));
+            assertFalse(unsupported.connected());
+            assertEquals(List.of("connect", "#SI", "close"), fake.actions);
+        }
+    }
     @Test public void statusParserCoversManualExamplesAndNeverConfusesNotCompiled() {
         assertEquals(ControllerProtocol.State.NOT_COMPILED, ControllerProtocol.status(1, "Buffer1: 18 lines,not compiled").state());
         assertEquals(3, ControllerProtocol.status(0, "Buffer 0: 5 lines, suspended in line 3\r\n").line());

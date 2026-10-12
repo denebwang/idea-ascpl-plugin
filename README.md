@@ -11,7 +11,7 @@
 - 普通补全包含内置符号，以及当前文件声明的变量、参数、标签、函数、结构体类型、轴别名。输入 `#` 补全常量；命令后输入 `/` 补全该命令的开关，保留已输入的组合开关。
 - 函数补全自动添加 `()` 并将光标放入括号；后面已有括号时不会重复插入。
 - **View → Quick Documentation** 或悬停显示离线英文说明、签名、参数、开关和手册章节/页码；后缀索引变量关联其基础数组文档。
-- 项目设置中的 **ACSPL+ Controller** 可定义多个 Windows ACS SDK 3.12 环境、模拟器/以太网连接及文件 → 缓冲区映射；工具窗口提供下载编译、运行、保存到 Flash 和状态查询。
+- 项目设置中的 **ACSPL+ Controller** 可定义多个 Windows ACS x64 SDK 环境、模拟器/以太网连接及文件 → 缓冲区映射；连接检查接受 3.12 / 3.13 固件，工具窗口提供下载编译、运行、保存到 Flash 和状态查询。
 - 控制器设置使用环境列表与独立表单，直接填写并可浏览 DLL、选择项目脚本；映射在所属环境下编辑，改环境名称时自动保留关联。修改检测不会结束输入，切换选择也保留未应用的草稿。
 - **保存到 Flash** 单独保存当前映射缓冲区的程序。保存前核对已编译源码与控制器内容，并确认覆盖目标；文件改动、运行/暂停状态或未编译时拒绝保存，普通下载编译不会自动写 Flash。
 - 下载编译固定使用 ASCII，包含注释与字符串；发现非 ASCII 字符时显示行号、列号和 Unicode 编码点，拒绝下载，不做字符替换。
@@ -46,7 +46,7 @@ LOCAL 默认继承原有 **User variable / identifier** 颜色，用户函数默
 
 ## 安装
 
-1. 从 [GitHub Release v0.3.5](https://github.com/denebwang/idea-ascpl-plugin/releases/tag/v0.3.5) 下载 `acspl-language-0.3.5.zip`，或自行构建后从 `build/distributions` 取得 ZIP。
+1. 从 [GitHub Release v0.3.6](https://github.com/denebwang/idea-ascpl-plugin/releases/tag/v0.3.6) 下载 `acspl-language-0.3.6.zip`，或自行构建后从 `build/distributions` 取得 ZIP。
 2. 在 JetBrains 2026.2 IDE 中打开 **Settings → Plugins → 齿轮 → Install Plugin from Disk**，选择 ZIP。
 3. 根据 IDE 提示启用插件或重启，打开 [examples/editing-demo.prg](examples/editing-demo.prg)。检查跨文件颜色时，将整个项目目录作为 IDE 项目打开，再打开 [examples/project-colors.prg](examples/project-colors.prg) 和 [examples/function-library.acspl](examples/function-library.acspl)。
 

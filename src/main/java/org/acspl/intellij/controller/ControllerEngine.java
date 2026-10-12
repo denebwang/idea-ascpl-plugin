@@ -28,8 +28,8 @@ public final class ControllerEngine implements AutoCloseable {
         try {
             String controller = query("#SI");
             var version = java.util.regex.Pattern.compile("(?i)Controller\\s*Firmware\\s*Version\\s*:\\s*(\\d+\\.\\d+)").matcher(controller);
-            if (version.find() && !version.group(1).equals("3.12"))
-                throw new IllegalStateException("目标固件为 " + version.group(1) + "，此集成仅针对 3.12。");
+            if (version.find() && !Set.of("3.12", "3.13").contains(version.group(1)))
+                throw new IllegalStateException("目标固件为 " + version.group(1) + "，此集成支持 3.12 / 3.13。");
             return info + "\n" + controller;
         }
         catch (IOException | RuntimeException e) { close(); throw e; }

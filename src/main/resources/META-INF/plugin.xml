@@ -6,7 +6,7 @@
         Lightweight ACSPL+ 3.12 editing support: syntax highlighting, line comments,
         project-aware user-function and GLOBAL/LOCAL variable colors,
         built-in and current-file completion, and offline English documentation.
-        Windows ACS SDK 3.12 controller environment preview: buffer compile/run,
+        Windows ACS x64 SDK controller environment preview (firmware 3.12 / 3.13): buffer compile/run,
         line breakpoints, pause, resume, step and read-only variable watches.
         Supports .prg and .acspl files across IntelliJ Platform 2026.2 IDEs.
     ]]></description>

@@ -8,6 +8,7 @@
 static HMODULE fixtureModule;
 static HANDLE channel = (HANDLE)-1;
 static int timeoutValue;
+static const char *firmware = "3.12.01.00";
 static char program[1024*1024];
 static char flashProgram[sizeof(program)];
 static int flashLength, flashSaveCount, flashBuffer = -1;
@@ -24,6 +25,7 @@ static int validHandle(HANDLE handle) {
 API HANDLE acsc_OpenCommSimulator(void) { errorCode = 0; return channel = (HANDLE)0; }
 API HANDLE acsc_OpenCommEthernetTCP(char *host, int port) {
     errorCode = 0;
+    if (!strcmp(host, "mock-firmware313")) { firmware = "3.13.01.00"; return channel = (HANDLE)0; }
     if (!strcmp(host, "mock-fail")) { errorCode = 405; return channel = (HANDLE)-1; }
     if (!strcmp(host, "mock-fail-no-error")) return channel = (HANDLE)-1;
     if (!strcmp(host, "mock-zero")) return channel = (HANDLE)0;
@@ -74,7 +76,7 @@ API int acsc_Transaction(HANDLE handle, char *out, int outCount, char *in, int i
     if (!strncmp(command, "#SAVE", 5) && strcmp(command, "#SAVEPROG 2")) { errorCode = 404; return 0; }
     if (!strcmp(command, "?MOCK_HANDLE")) sprintf(response, "%lld\r\n", (long long)(LONG_PTR)handle);
     else if (!strcmp(command, "?MOCK_TIMEOUT")) sprintf(response, "%d\r\n", timeoutValue);
-    else if (!strcmp(command, "#SI")) strcpy(response, "Controller Firmware Version:3.12.01.00\r\n");
+    else if (!strcmp(command, "#SI")) sprintf(response, "Controller Firmware Version:%s\r\n", firmware);
     else if (!strcmp(command, "#SAVEPROG 2")) {
         memcpy(flashProgram, program, length); flashLength = length; flashBuffer = 2; flashSaveCount++;
     }

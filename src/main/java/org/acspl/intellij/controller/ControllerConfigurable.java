@@ -77,7 +77,7 @@ public final class ControllerConfigurable implements Configurable {
         mainSplit.setResizeWeight(0.2); mainSplit.setDividerLocation(190);
         panel = new JPanel(new BorderLayout(0, 8));
         panel.add(new JLabel("<html>选择左侧环境，在右侧直接填写；文件映射属于所选环境。<br>" +
-            "需要 Windows ACS SDK/ADK 3.12 提供的 x64 C 库 DLL（ACSCL_x64.dll）。SIMULATOR 无需填写控制器地址。<br>" +
+            "需要 Windows ACS SDK/ADK 提供的 x64 C 库 DLL（ACSCL_x64.dll）；支持固件 3.12 / 3.13。SIMULATOR 无需填写控制器地址。<br>" +
             "设置不会自动连接或运行。脚本源码固定为 ASCII，包括注释与字符串。</html>"), BorderLayout.NORTH);
         panel.add(mainSplit, BorderLayout.CENTER); panel.setPreferredSize(new Dimension(1000, 520));
 
