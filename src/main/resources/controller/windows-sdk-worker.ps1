@@ -24,7 +24,10 @@ public sealed class AcsSdk : IDisposable {
     [UnmanagedFunctionPointer(CallingConvention.Winapi)] delegate int Transaction(IntPtr handle, [In] byte[] output, int outputCount, [Out] byte[] input, int inputCount, out int received, IntPtr wait);
     [UnmanagedFunctionPointer(CallingConvention.Winapi)] delegate int LoadBuffer(IntPtr handle, int buffer, [In] byte[] program, int count, IntPtr wait);
     [UnmanagedFunctionPointer(CallingConvention.Winapi)] delegate int UploadBuffer(IntPtr handle, int buffer, int offset, [Out] byte[] program, int count, out int received, IntPtr wait);
-    IntPtr library, handle = new IntPtr(-1);
+    // ACS communication handles are opaque channel values, not Win32 object handles.
+    // The SDK uses ACSC_INVALID (-1) for failure; a value of zero is valid.
+    static readonly IntPtr InvalidHandle = new IntPtr(-1);
+    IntPtr library, handle = InvalidHandle;
     OpenSimulator simulator; OpenEthernet ethernet; CloseComm close; SetTimeout timeout;
     LastError lastError; ErrorString errorString; Transaction transaction; LoadBuffer load; UploadBuffer upload;
     public string Version;
@@ -62,20 +65,23 @@ public sealed class AcsSdk : IDisposable {
             upload = Export<UploadBuffer>("acsc_UploadBuffer");
         } catch { Dispose(); throw; }
     }
-    void Check(int result) {
+    void Check(int result, string operation) {
         if (result != 0) return;
         int code = lastError(); byte[] text = new byte[2048]; int received;
-        string detail = "";
-        if (errorString(handle, code, text, text.Length, out received) != 0)
-            detail = Encoding.Default.GetString(text, 0, Math.Max(0, Math.Min(received, text.Length))).TrimEnd('\0', '\r', '\n');
-        throw new InvalidOperationException("ACS SDK error " + code + ": " + detail);
+        string detail = code == 0 ? "The SDK returned failure but reported no error code." : "Error description unavailable.";
+        if (code != 0 && errorString(handle, code, text, text.Length, out received) != 0) {
+            string description = Encoding.Default.GetString(text, 0, Math.Max(0, Math.Min(received, text.Length))).TrimEnd('\0', '\r', '\n');
+            if (!String.IsNullOrWhiteSpace(description)) detail = description;
+        }
+        throw new InvalidOperationException(operation + " failed (ACS SDK error " + code + "): " + detail);
     }
-    void Connected() { if (handle == new IntPtr(-1) || handle == IntPtr.Zero) throw new InvalidOperationException("Not connected."); }
+    void Connected() { if (handle == InvalidHandle) throw new InvalidOperationException("Not connected."); }
     static void Buffer(int b) { if (b < 0 || b > 63) throw new ArgumentOutOfRangeException("buffer"); }
     public string Connect(string kind, string host, int port, int milliseconds) {
         handle = kind == "SIMULATOR" ? simulator() : ethernet(host, port);
-        if (handle == new IntPtr(-1) || handle == IntPtr.Zero) Check(0);
-        Check(timeout(handle, milliseconds));
+        if (handle == InvalidHandle)
+            Check(0, kind == "SIMULATOR" ? "acsc_OpenCommSimulator" : "acsc_OpenCommEthernetTCP (" + host + ":" + port + ")");
+        Check(timeout(handle, milliseconds), "acsc_SetTimeout");
         return "ACS C Library " + (Version.Length == 0 ? "(file version metadata unavailable)" : Version) + " / " + kind;
     }
     public string Query(string command) {
@@ -83,7 +89,7 @@ public sealed class AcsSdk : IDisposable {
         if (command.IndexOfAny(new char[]{'\r','\n','\0'}) >= 0) throw new InvalidOperationException("Invalid command.");
         byte[] output = Encoding.ASCII.GetBytes(command + "\r");
         byte[] input = new byte[65536]; int received;
-        Check(transaction(handle, output, output.Length, input, input.Length, out received, IntPtr.Zero));
+        Check(transaction(handle, output, output.Length, input, input.Length, out received, IntPtr.Zero), "acsc_Transaction");
         if (received < 0 || received > input.Length) throw new InvalidOperationException("Invalid SDK reply length.");
         return Encoding.Default.GetString(input, 0, received).TrimEnd('\0');
     }
@@ -94,7 +100,7 @@ public sealed class AcsSdk : IDisposable {
             if (value > 0x7f) throw new InvalidOperationException("ACSPL+ source must contain ASCII bytes only.");
         // Explicit count excludes the C string terminator.
         byte[] terminated = new byte[program.Length + 1]; Array.Copy(program, terminated, program.Length);
-        Check(load(handle, buffer, terminated, program.Length, IntPtr.Zero));
+        Check(load(handle, buffer, terminated, program.Length, IntPtr.Zero), "acsc_LoadBuffer");
     }
     public byte[] Upload(int buffer) {
         Connected(); Buffer(buffer);
@@ -102,7 +108,7 @@ public sealed class AcsSdk : IDisposable {
             const int chunk = 16384;
             for (int offset = 0; offset < 16*1024*1024; offset += chunk) {
                 byte[] bytes = new byte[chunk]; int received;
-                Check(upload(handle, buffer, offset, bytes, chunk, out received, IntPtr.Zero));
+                Check(upload(handle, buffer, offset, bytes, chunk, out received, IntPtr.Zero), "acsc_UploadBuffer");
                 if (received < 0 || received > chunk) throw new InvalidOperationException("Invalid SDK upload length.");
                 // SDK versions may count a terminating NUL as part of the final reply.
                 int count = received;
@@ -114,8 +120,8 @@ public sealed class AcsSdk : IDisposable {
         }
     }
     public void Dispose() {
-        if (close != null && handle != new IntPtr(-1) && handle != IntPtr.Zero) close(handle);
-        handle = new IntPtr(-1);
+        if (close != null && handle != InvalidHandle) close(handle);
+        handle = InvalidHandle;
         if (library != IntPtr.Zero) FreeLibrary(library);
         library = IntPtr.Zero;
     }
@@ -142,12 +148,12 @@ try {
             }
             $reply = @{ id=$request.id; ok=$true; result=$result }
         } catch {
-            $reply = @{ id=$request.id; ok=$false; error=$_.Exception.ToString() }
+            $reply = @{ id=$request.id; ok=$false; error=$_.Exception.GetBaseException().Message }
         }
         [Console]::WriteLine('ACSPL_JSON:' + ($reply | ConvertTo-Json -Compress -Depth 6))
     }
 } catch {
-    [Console]::WriteLine('ACSPL_JSON:' + (@{ ok=$false; error=$_.Exception.ToString() } | ConvertTo-Json -Compress))
+    [Console]::WriteLine('ACSPL_JSON:' + (@{ ok=$false; error=$_.Exception.GetBaseException().Message } | ConvertTo-Json -Compress))
 } finally {
     if ($null -ne $sdk) { $sdk.Dispose() }
 }

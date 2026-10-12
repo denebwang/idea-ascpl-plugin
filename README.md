@@ -15,6 +15,7 @@
 - 控制器设置使用环境列表与独立表单，直接填写并可浏览 DLL、选择项目脚本；映射在所属环境下编辑，改环境名称时自动保留关联。修改检测不会结束输入，切换选择也保留未应用的草稿。
 - **保存到 Flash** 单独保存当前映射缓冲区的程序。保存前核对已编译源码与控制器内容，并确认覆盖目标；文件改动、运行/暂停状态或未编译时拒绝保存，普通下载编译不会自动写 Flash。
 - 下载编译固定使用 ASCII，包含注释与字符串；发现非 ASCII 字符时显示行号、列号和 Unicode 编码点，拒绝下载，不做字符替换。
+- SDK 连接按 `ACSC_INVALID (-1)` 判断失败，接受有效的零值连接句柄；错误日志显示具体 SDK 接口和错误码，避免将成功连接误报为 `ACS SDK error 0`。
 - 调试使用 IDE 行断点和 Debug 窗口，支持暂停、继续、控制器行单步、缓冲区变量及只读 Watches。下载前自动备份，运行前核对源码；需要用户另行安装 SDK，真实 SDK/控制器联调尚未完成，详见[控制器指南](docs/controller.md)。
 
 关键字、命令和内置函数不区分大小写；系统变量、常量以及当前文件名称按原始大小写匹配。候选保留手册或声明中的名称。
@@ -45,7 +46,7 @@ LOCAL 默认继承原有 **User variable / identifier** 颜色，用户函数默
 
 ## 安装
 
-1. 从 [GitHub Release v0.3.4](https://github.com/denebwang/idea-ascpl-plugin/releases/tag/v0.3.4) 下载 `acspl-language-0.3.4.zip`，或自行构建后从 `build/distributions` 取得 ZIP。
+1. 从 [GitHub Release v0.3.5](https://github.com/denebwang/idea-ascpl-plugin/releases/tag/v0.3.5) 下载 `acspl-language-0.3.5.zip`，或自行构建后从 `build/distributions` 取得 ZIP。
 2. 在 JetBrains 2026.2 IDE 中打开 **Settings → Plugins → 齿轮 → Install Plugin from Disk**，选择 ZIP。
 3. 根据 IDE 提示启用插件或重启，打开 [examples/editing-demo.prg](examples/editing-demo.prg)。检查跨文件颜色时，将整个项目目录作为 IDE 项目打开，再打开 [examples/project-colors.prg](examples/project-colors.prg) 和 [examples/function-library.acspl](examples/function-library.acspl)。
 

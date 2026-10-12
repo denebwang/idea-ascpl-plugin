@@ -41,6 +41,62 @@ public class WindowsSdkTransportTest {
             assertTrue(engine.connected());
         }
     }
+    @Test public void zeroValuedSimulatorAndEthernetHandlesAreUsableAndClosed() throws Exception {
+        Path marker = Path.of(environment.dllPath + ".closed");
+        for (String kind : List.of("SIMULATOR", "ETHERNET")) {
+            Files.deleteIfExists(marker);
+            var profile = environment.copy(); profile.connection = kind; profile.host = "mock-zero";
+            try (var transport = new WindowsSdkTransport()) {
+                assertTrue(transport.connect(profile).contains(kind));
+                assertEquals("0", transport.transaction("?MOCK_HANDLE").strip());
+                assertEquals(Integer.toString(profile.timeoutMs), transport.transaction("?MOCK_TIMEOUT").strip());
+                byte[] program = AsciiSource.encode("STOP\n");
+                transport.load(2, program); assertArrayEquals(program, transport.upload(2));
+            }
+            long deadline = System.nanoTime() + java.util.concurrent.TimeUnit.SECONDS.toNanos(5);
+            while ((!Files.exists(marker) || !Files.readString(marker).equals("0")) && System.nanoTime() < deadline)
+                Thread.sleep(25);
+            assertTrue("CloseComm must receive the zero-valued " + kind + " handle", Files.exists(marker));
+            assertEquals("0", Files.readString(marker));
+        }
+    }
+    @Test public void nonzeroEthernetHandlesRetainTheirFull64BitValue() throws Exception {
+        for (String host : List.of("mock-positive", "mock-wide")) {
+            var profile = environment.copy(); profile.connection = "ETHERNET"; profile.host = host;
+            try (var transport = new WindowsSdkTransport()) {
+                transport.connect(profile);
+                assertEquals(host.equals("mock-wide") ? "4294967297" : "1", transport.transaction("?MOCK_HANDLE").strip());
+            }
+        }
+    }
+    @Test public void invalidEthernetHandleReportsOpeningOperationAndNativeError() throws Exception {
+        var profile = environment.copy(); profile.connection = "ETHERNET"; profile.host = "mock-fail";
+        try (var transport = new WindowsSdkTransport()) {
+            var error = assertThrows(IOException.class, () -> transport.connect(profile));
+            assertTrue(error.getMessage(), error.getMessage().contains("acsc_OpenCommEthernetTCP"));
+            assertTrue(error.getMessage(), error.getMessage().contains("405"));
+            assertFalse(error.getMessage(), error.getMessage().contains("System.Management.Automation"));
+            assertThrows(IOException.class, () -> transport.transaction("#SI"));
+        }
+    }
+    @Test public void timeoutFailureAfterValidZeroHandleStillFailsConnection() throws Exception {
+        var profile = environment.copy(); profile.timeoutMs = 500;
+        try (var transport = new WindowsSdkTransport()) {
+            var error = assertThrows(IOException.class, () -> transport.connect(profile));
+            assertTrue(error.getMessage(), error.getMessage().contains("acsc_SetTimeout"));
+            assertTrue(error.getMessage(), error.getMessage().contains("406"));
+            assertThrows(IOException.class, () -> transport.transaction("#SI"));
+        }
+    }
+    @Test public void invalidHandleWithoutSdkErrorCodeIsNotTreatedAsConnected() throws Exception {
+        var profile = environment.copy(); profile.connection = "ETHERNET"; profile.host = "mock-fail-no-error";
+        try (var transport = new WindowsSdkTransport()) {
+            var error = assertThrows(IOException.class, () -> transport.connect(profile));
+            assertTrue(error.getMessage(), error.getMessage().contains("acsc_OpenCommEthernetTCP"));
+            assertTrue(error.getMessage(), error.getMessage().contains("ACS SDK error 0"));
+            assertTrue(error.getMessage(), error.getMessage().contains("no error code"));
+        }
+    }
     @Test public void fullCompileRunPauseStepResumeAndStopThroughNativeBridge() throws Exception {
         try (var engine = new ControllerEngine(new WindowsSdkTransport(), environment, temp.getRoot().toPath().resolve("backup"))) {
             engine.connect();
